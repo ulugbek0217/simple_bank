@@ -1,4 +1,4 @@
-name: Go
+name: Go test ci
 
 on:
   push:
@@ -37,11 +37,13 @@ jobs:
       uses: actions/setup-go@v4
       with:
         go-version: '1.23.6'
+
     - name: Set up migration tool
       run: |
         curl -L https://github.com/golang-migrate/migrate/releases/download/v4.18.2/migrate.linux-amd64.tar.gz | tar xvz
-        sudo mv migrate /usr/bin
-    - name: Migrate db
+        sudo mv migrate /usr/bin/
+        
+    - name: Migrate database
       run: make migrateup
       
     - name: Test
