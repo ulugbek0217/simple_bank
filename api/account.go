@@ -119,8 +119,8 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 }
 
 type updateAccountBalanceRequest struct {
-	ID      int64 `form:"id" binding:"required,min=1"`
-	Balance int64 `form:"balance" binding:"required,min=1"`
+	ID      int64  `form:"id" binding:"required,min=1"`
+	Balance *int64 `form:"balance" binding:"required,gte=0"`
 }
 
 func (server *Server) updateAccountBalance(ctx *gin.Context) {
@@ -133,7 +133,7 @@ func (server *Server) updateAccountBalance(ctx *gin.Context) {
 
 	arg := db.UpdateAccountParams{
 		ID:      req.ID,
-		Balance: req.Balance,
+		Balance: *req.Balance,
 	}
 
 	account, err := server.store.UpdateAccount(ctx, arg)
