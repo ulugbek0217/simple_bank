@@ -17,7 +17,7 @@ import (
 	"github.com/ulugbek0217/simple_bank/util"
 )
 
-func TestAccountAPI(t *testing.T) {
+func TestGetAccountAPI(t *testing.T) {
 	account := randomAccount()
 
 	testCases := []struct {
@@ -105,6 +105,18 @@ func TestAccountAPI(t *testing.T) {
 
 }
 
+func TestCreateAccountAPI(t *testing.T) {
+	account := randomAccount()
+
+	testCases := []struct {
+		name          string
+		accountID     int64
+		buildStubs    func(store *mockdb.MockStore)
+		checkResponse func(t *testing.T, recorder *httptest.ResponseRecorder)
+	}{}
+}
+
+// randomAccount creates and returns a random account
 func randomAccount() db.Account {
 	return db.Account{
 		ID:       util.RandomInt(1, 1000),
@@ -114,6 +126,7 @@ func randomAccount() db.Account {
 	}
 }
 
+// requireBodyMatchAccount checks wheter the response body matches or not
 func requireBodyMatchAccount(t *testing.T, body *bytes.Buffer, account db.Account) {
 	data, err := io.ReadAll(body)
 	require.NoError(t, err)

@@ -2,7 +2,6 @@ package main
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
 	_ "github.com/lib/pq"
@@ -15,10 +14,6 @@ func main() {
 	config, err := util.LoadConfig(".")
 	if err != nil {
 		log.Fatal("cannot load env:", err)
-	}
-
-	{
-		fmt.Println(config)
 	}
 
 	conn, err := sql.Open(config.DBDriver, config.DBSource)
