@@ -65,7 +65,7 @@ type listAccountRequest struct {
 	PageSize int32 `form:"page_size" binding:"required,min=5,max=10"`
 }
 
-func (server *Server) listAccount(ctx *gin.Context) {
+func (server *Server) listAccounts(ctx *gin.Context) {
 	var req listAccountRequest
 	err := ctx.ShouldBindQuery(&req)
 	if err != nil {
@@ -115,7 +115,7 @@ func (server *Server) deleteAccount(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, gin.H{"deleteAccount": "success"})
+	ctx.JSON(http.StatusOK, req.ID)
 }
 
 type updateAccountBalanceRequest struct {
